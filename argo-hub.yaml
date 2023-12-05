@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    path: .
+    path: ./workflows/
     repoURL: https://github.com/codefresh-io/argo-hub.git
     targetRevision: HEAD
   destination:
