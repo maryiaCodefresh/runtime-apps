@@ -90,41 +90,6 @@ spec:
                 - name: TAG
                   value: '{{ inputs.parameters.IMAGE_TAG }}'
 
-          #  https://codefresh.io/argohub/workflow-template/CSDP-metadata
-          - name: report-image-info
-            templateRef:
-              name: argo-hub.codefresh-csdp.0.0.6
-              template: report-image-info
-            arguments:
-              parameters:
-                - name: IMAGE
-                  value: '{{ inputs.parameters.IMAGE_NAME }}:{{ inputs.parameters.IMAGE_TAG }}'
-                - name: CF_API_KEY
-                  value: codefresh-token # this secret is created as part of the runtime installation
-                - name: GIT_REVISION
-                  value: '{{ inputs.parameters.GIT_REVISION }}'
-                - name: GIT_BRANCH
-                  value: '{{ inputs.parameters.GIT_BRANCH }}'
-                - name: GIT_COMMIT_URL
-                  value: '{{ inputs.parameters.GIT_COMMIT_URL }}'
-                - name: GIT_COMMIT_MESSAGE
-                  value: '{{ inputs.parameters.GIT_COMMIT_MESSAGE }}'
-                - name: USERNAME
-                  value: '{{ inputs.parameters.REGISTRY_CREDS_SECRET }}'
-                - name: PASSWORD
-                  value: '{{ inputs.parameters.REGISTRY_CREDS_SECRET }}'
-                - name: DOMAIN
-                  value: '{{ inputs.parameters.REGISTRY_CREDS_SECRET }}'
-            depends: build-docker-image
-
-          - name: test-image
-            template: test
-            arguments:
-              parameters:
-                - name: IMAGE
-                  value: '{{ inputs.parameters.IMAGE_NAME }}:{{ inputs.parameters.IMAGE_TAG }}'
-            depends: report-image-info
-
     # Test template
     - name: test
       metadata:
