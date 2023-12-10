@@ -38,4 +38,4 @@ spec:
           git add .
           git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
           git remote show origin
-          git push origin HEAD:master
+          git push master
