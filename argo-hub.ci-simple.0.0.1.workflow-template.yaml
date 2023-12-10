@@ -90,7 +90,7 @@ spec:
                 - name: TAG
                   value: '{{ inputs.parameters.IMAGE_TAG }}'
     #update K8s manifest
-    - name: update-image-step
+    - name: update-image
       inputs:
         parameters:
         - name: github-repo
@@ -99,7 +99,8 @@ spec:
           value: '{{inputs.parameters.MANIFEST_PATH}}'
         - name: new-image-tag
           value: '{{ inputs.parameters.IMAGE_TAG }}'
-      container:
+      script:
+        name: step
         image: alpine/git
         command: [sh]
         source: |
