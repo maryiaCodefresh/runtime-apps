@@ -11,7 +11,7 @@ spec:
           - name: repo
             path: /tmp/repo
             git:
-              repo: 'git@github.com:maryiaCodefresh/word-mastermind.git'
+              repo: '{{ inputs.parameters.REPO}}'
               revision: '{{ inputs.parameters.REVISION }}'
               usernameSecret:
                 name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
@@ -38,4 +38,5 @@ spec:
           git config user.email {{ inputs.parameters.EMAIL }}
           git add .
           git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
+          git remote set-url origin git@github.com:{{ inputs.parameters.GITHUB_REPO }}.git
           git push origin master
