@@ -11,7 +11,7 @@ spec:
           - name: repo
             path: /tmp/repo
             git:
-              repo: '{{ inputs.parameters.REPO }}'
+              repo: 'git@github.com:maryiaCodefresh/word-mastermind.git'
               revision: '{{ inputs.parameters.REVISION }}'
               usernameSecret:
                 name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
