@@ -23,24 +23,6 @@ spec:
         secretName: '{{ inputs.parameters.DOCKER_CONFIG_SECRET }}'
   entrypoint: ci-tasks
   templates:
-    - name: update-image
-      inputs:
-        parameters:
-        - name: GITHUB_REPO
-        - name: MANIFEST_PATH
-        - name: IMAGE_TAG
-      script:
-        name: step
-        image: alpine/git
-        command: [sh]
-        source: |
-          git clone https://github.com/{{ inputs.parameters.GITHUB_REPO }} /workspace/repo
-          cd /workspace/repo
-          git checkout -b update-image
-          sed -i "s/image:.*\$/image: your-container-image:{{ inputs.parameters.IMAGE_TAG }}/" {{ inputs.parameters.MANIFEST_PATH }}
-          git add .
-          git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
-          git push origin update-image
     - name: ci-tasks
       metadata:
         annotations:
@@ -109,4 +91,22 @@ spec:
                 - name: CONTEXT
                   value: '{{ inputs.parameters.CONTEXT }}'
                 - name: TAG
-                  value: '{{ inputs.parameters.IMAGE_TAG }}'
+                  value: '{{ inputs.parameters.IMAGE_TAG }}'    
+    - name: update-image
+      inputs:
+        parameters:
+        - name: GITHUB_REPO
+        - name: MANIFEST_PATH
+        - name: IMAGE_TAG
+      script:
+        name: step
+        image: alpine/git
+        command: [sh]
+        source: |
+          git clone https://github.com/{{ inputs.parameters.GITHUB_REPO }} /workspace/repo
+          cd /workspace/repo
+          git checkout -b update-image
+          sed -i "s/image:.*\$/image: your-container-image:{{ inputs.parameters.IMAGE_TAG }}/" {{ inputs.parameters.MANIFEST_PATH }}
+          git add .
+          git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
+          git push origin update-image
