@@ -82,7 +82,7 @@ spec:
             - dest: spec.arguments.parameters.4.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: '3.0'
+                dataTemplate: '4.0'
             - dest: spec.arguments.parameters.5.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
