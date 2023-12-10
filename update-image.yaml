@@ -31,7 +31,9 @@ spec:
         workingDir: '{{ inputs.artifacts.repo.path }}'
         command: ["sh"]
         source: |
+          cd git
           ls
+          cd ..
           sed -i "s#image:.*#image: {{ inputs.parameters.IMAGE_NAME }}:{{ inputs.parameters.IMAGE_TAG }}#g" {{ inputs.parameters.MANIFEST_PATH }}
           cat {{ inputs.parameters.MANIFEST_PATH }}
           git config user.name {{ inputs.parameters.USER }}
