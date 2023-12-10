@@ -14,7 +14,7 @@ spec:
               repo: '{{ inputs.parameters.REPO}}'
               revision: '{{ inputs.parameters.REVISION }}'
               usernameSecret:
-                name: ''
+                name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
                 key: token
         parameters:
           - name: REPO
