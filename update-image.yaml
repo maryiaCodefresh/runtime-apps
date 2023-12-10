@@ -31,6 +31,7 @@ spec:
         workingDir: '{{ inputs.artifacts.repo.path }}'
         command: ["sh"]
         source: |
+          GIT_TOKEN=$(echo '{{ workflow.parameters.GIT_TOKEN_SECRET }}' | base64 -d)
           git clone https://github.com/{{ inputs.parameters.GITHUB_REPO }}  /workspace/repo
           cd /workspace/repo
           sed -i "s#image:.*#image: {{ inputs.parameters.IMAGE_NAME }}:{{ inputs.parameters.IMAGE_TAG }}#g" {{ inputs.parameters.MANIFEST_PATH }}
@@ -39,6 +40,5 @@ spec:
           git config user.email {{ inputs.parameters.EMAIL }}
           git add .
           git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
-          Token=echo {{ workflow.parameters.GIT_TOKEN_SECRET }} | base64 --decode
-          git remote set-url origin https://{{ inputs.parameters.USER }}:$TOKEN@github.com/{{ inputs.parameters.GITHUB_REPO }}.git
+          git remote set-url origin https://{{ inputs.parameters.USER }}:$GIT_TOKEN@github.com/{{ inputs.parameters.GITHUB_REPO }}.git
           git push -u origin master
