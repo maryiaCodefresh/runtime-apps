@@ -89,14 +89,6 @@ spec:
                   value: '{{ inputs.parameters.CONTEXT }}'
                 - name: TAG
                   value: '{{ inputs.parameters.IMAGE_TAG }}'    
-    - name: update-image
-      inputs:
-        parameters:
-        - name: GITHUB_REPO
-        - name: MANIFEST_PATH
-        - name: IMAGE_TAG
-      dag:
-        tasks:
           - name: update-manifest
             templateRef:
               name: update-image
@@ -109,3 +101,5 @@ spec:
                   value: '{{ inputs.parameters.MANIFEST_PATH }}'
                 - name: IMAGE_TAG
                   value: '{{ inputs.parameters.IMAGE_TAG }}'
+                - name: GIT_TOKEN_SECRET
+                  value: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
