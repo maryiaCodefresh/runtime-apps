@@ -37,5 +37,4 @@ spec:
           git config user.email {{ inputs.parameters.EMAIL }}
           git add .
           git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
-          git config --get remote.origin.url
-          git push master HEAD:master
+          git push remote.origin.url HEAD:master
