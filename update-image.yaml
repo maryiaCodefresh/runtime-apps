@@ -7,16 +7,25 @@ spec:
   templates:
     - name: update-image
       inputs:
+        artifacts:
+          - name: repo
+            path: /tmp/repo
+            git:
+              repo: '{{ inputs.parameters.REPO }}'
+              revision: '{{ inputs.parameters.REVISION }}'
+              usernameSecret:
+                name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
+                key: token
         parameters:
-        - name: GITHUB_REPO
-        - name: MANIFEST_PATH
-        - name: IMAGE_TAG
-      script:
-        name: step
+          - name: GITHUB_REPO
+          - name: MANIFEST_PATH
+          - name: IMAGE_TAG
+      container:
         image: alpine/git
+        workingDir: '{{ inputs.artifacts.repo.path }}'
         command: [sh]
         source: |
-          git clone https://github.com/{{ inputs.parameters.GITHUB_REPO }} /workspace/repo
+          git clone https://{{ inputs.parameters.GIT_TOKEN_SECRET.name }}:{{ inputs.parameters.GIT_TOKEN_SECRET.key }}@github.com/{{ inputs.parameters.GITHUB_REPO }} /workspace/repo
           cd /workspace/repo
           git checkout -b update-image
           sed -i "s/image:.*\$/image: your-container-image:{{ inputs.parameters.IMAGE_TAG }}/" {{ inputs.parameters.MANIFEST_PATH }}
