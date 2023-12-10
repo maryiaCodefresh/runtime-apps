@@ -94,9 +94,9 @@ spec:
       inputs:
         parameters:
         - name: github-repo
-          value: '{{inputs.parameters.github-repo}}'
+          value: '{{inputs.parameters.GITHUB_REPO}}'
         - name: manifest-path
-          value: '{{inputs.parameters.manifest-path}}'
+          value: '{{inputs.parameters.MANIFEST_PATH}}'
         - name: new-image-tag
           value: '{{ inputs.parameters.IMAGE_TAG }}'
       container:
