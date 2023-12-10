@@ -115,3 +115,5 @@ spec:
                   value: '{{ inputs.parameters.USER }}'
                 - name: EMAIL
                   value: '{{ inputs.parameters.EMAIL }}'
+                - name: IMAGE_NAME
+                  value: '{{ inputs.parameters.IMAGE_NAME }}'
