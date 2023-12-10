@@ -25,6 +25,7 @@ spec:
           - name: IMAGE_TAG
           - name: USER
           - name: EMAIL
+          - name: IMAGE_NAME
       script:
         image: alpine/git
         workingDir: '{{ inputs.artifacts.repo.path }}'
@@ -32,8 +33,7 @@ spec:
         source: |
           git clone https://github.com/{{ inputs.parameters.GITHUB_REPO }}  /workspace/repo
           cd /workspace/repo
-          sed -i "s/image:.*\$/image: mashabrauer:{{ inputs.parameters.IMAGE_TAG }}/" {{ inputs.parameters.MANIFEST_PATH }}
-          cat {{ inputs.parameters.MANIFEST_PATH }}
+          sed -i "s/image:.*\$/image: {{ inputs.parameters.IMAGE_NAME }}:{{ inputs.parameters.IMAGE_TAG }}/" {{ inputs.parameters.MANIFEST_PATH }}
           git config user.name {{ inputs.parameters.USER }}
           git config user.email {{ inputs.parameters.EMAIL }}
           git add .
