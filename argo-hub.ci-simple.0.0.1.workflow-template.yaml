@@ -68,6 +68,8 @@ spec:
             default: docker-config  # the name of the registry-creds secret you created
           - name: GITHUB_REPO
           - name: MANIFEST_PATH
+          - name: USER
+          - name: EMAIL
       dag:
         tasks:
           # https://codefresh.io/argohub/workflow-template/kaniko
@@ -109,3 +111,7 @@ spec:
                   value: '{{ inputs.parameters.IMAGE_TAG }}'
                 - name: GIT_TOKEN_SECRET
                   value: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
+                - name: USER
+                  value: '{{ inputs.parameters.USER }}'
+                - name: EMAIL
+                  value: '{{ inputs.parameters.EMAIL }}'
