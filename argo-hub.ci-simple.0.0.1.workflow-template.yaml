@@ -104,3 +104,22 @@ spec:
         image: '{{ inputs.parameters.IMAGE }}'
         command: [sh, -c]
         args: ["ls"]
+
+    #update K8s manifest
+    - name: update-image-step
+      inputs:
+        parameters:
+        - name: github-repo
+        - name: manifest-path
+        - name: new-image-tag
+      container:
+        image: alpine/git
+        command: [sh]
+        source: |
+          git clone https://github.com/{{inputs.parameters.github-repo}} /workspace/repo
+          cd /workspace/repo
+          git checkout -b update-image
+          sed -i "s/image:.*\$/image: your-container-image:{{inputs.parameters.new-image-tag}}/" {{inputs.parameters.manifest-path}}
+          git add .
+          git commit -m "Update container image tag to {{inputs.parameters.new-image-tag}}"
+          git push origin update-image
