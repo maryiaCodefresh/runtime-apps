@@ -28,7 +28,7 @@ spec:
       script:
         image: alpine/git
         workingDir: '{{ inputs.artifacts.repo.path }}'
-        command: ["/bin/sh", "-c"]
+        command: ["sh"]
         source: |
           git clone --depth=1 https://{{ inputs.parameters.USER }}:{{ inputs.parameters.GIT_TOKEN_SECRET.key }}@github.com/{{ inputs.parameters.GITHUB_REPO }} /workspace/repo
           cd /workspace/repo
