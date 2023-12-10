@@ -32,10 +32,9 @@ spec:
         source: |
           git clone https://{{ inputs.parameters.USER }}:{{ inputs.parameters.GIT_TOKEN_SECRET }}@github.com/{{ inputs.parameters.GITHUB_REPO }} /workspace/repo
           cd /workspace/repo
-          git checkout -b master
           sed -i "s/image:.*\$/image: your-container-image:{{ inputs.parameters.IMAGE_TAG }}/" {{ inputs.parameters.MANIFEST_PATH }}
           git config user.name {{ inputs.parameters.USER }}
           git config user.email {{ inputs.parameters.EMAIL }}
           git add .
           git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
-          git push origin master
+          git push -u origin master
