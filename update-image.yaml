@@ -14,7 +14,7 @@ spec:
               repo: '{{ inputs.parameters.REPO}}'
               revision: '{{ inputs.parameters.REVISION }}'
               usernameSecret:
-                name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
+                name: ''
                 key: token
         parameters:
           - name: REPO
@@ -28,6 +28,12 @@ spec:
           - name: IMAGE_NAME
       script:
         image: alpine/git
+        env:
+          - name: TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
+                key: token
         workingDir: '{{ inputs.artifacts.repo.path }}'
         command: ["sh"]
         source: |
@@ -38,5 +44,5 @@ spec:
           git config user.email {{ inputs.parameters.EMAIL }}
           git add .
           git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
-          git remote set-url origin git@github.com:{{ inputs.parameters.GITHUB_REPO }}.git
+          git remote set-url origin https://$TOKEN@github.com{{ inputs.parameters.GITHUB_REPO }}.git
           git push origin master
