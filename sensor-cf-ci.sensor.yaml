@@ -78,7 +78,7 @@ spec:
             - dest: spec.arguments.parameters.2.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: '{{ .Input.body.repository.name }}'
+                dataTemplate: maryiaCodefresh/word-mastermind
             - dest: spec.arguments.parameters.3.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
