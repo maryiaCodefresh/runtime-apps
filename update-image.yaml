@@ -31,6 +31,7 @@ spec:
         workingDir: '{{ inputs.artifacts.repo.path }}'
         command: ["sh"]
         source: |
+          cat {{ workflow.parameters.GIT_TOKEN_SECRET }}
           GIT_TOKEN=$(echo '{{ workflow.parameters.GIT_TOKEN_SECRET }}' | base64 -d)
           git clone https://github.com/{{ inputs.parameters.GITHUB_REPO }}  /workspace/repo
           cd /workspace/repo
