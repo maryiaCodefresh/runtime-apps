@@ -97,6 +97,10 @@ spec:
               template: update-image
             arguments:
                 parameters:
+                - name: REPO
+                  value: '{{ inputs.parameters.GIT_REPO_URL }}'
+                - name: REVISION
+                  value: '{{ inputs.parameters.GIT_REVISION }}'
                 - name: GITHUB_REPO
                   value: '{{ inputs.parameters.GITHUB_REPO }}'
                 - name: MANIFEST_PATH
