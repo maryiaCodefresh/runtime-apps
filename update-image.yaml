@@ -28,12 +28,6 @@ spec:
           - name: IMAGE_NAME
       script:
         image: alpine/git
-        env:
-          - name: TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
-                key: token
         workingDir: '{{ inputs.artifacts.repo.path }}'
         command: ["sh"]
         source: |
