@@ -38,5 +38,5 @@ spec:
           git config user.email {{ inputs.parameters.EMAIL }}
           git add .
           git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
-          git remote set-url origin https://{{ inputs.parameters.USER }}:{{ inputs.parameters.GIT_TOKEN_SECRET.key }}@github.com/{{ inputs.parameters.GITHUB_REPO }}.git
+          git remote set-url origin https://{{ inputs.parameters.USER }}:{{ inputs.parameters.GIT_TOKEN_SECRET }}@github.com/{{ inputs.parameters.GITHUB_REPO }}.git
           git push -u origin master
