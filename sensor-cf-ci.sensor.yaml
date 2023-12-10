@@ -36,6 +36,10 @@ spec:
               spec:
                 arguments:
                   parameters:
+                    - name: USER
+                      value: ''
+                    - name: EMAIL
+                      value: ''
                     - name: GITHUB_REPO
                       value: ''
                     - name: MANIFEST_PATH
@@ -66,48 +70,56 @@ spec:
             - dest: spec.arguments.parameters.0.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: '{{ .Input.body.repository.name }}'
+                dataTemplate: maryia-brauer
             - dest: spec.arguments.parameters.1.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: ./manifests/word-mastermind.yml
+                dataTemplate: maryia.brauer@va.lv
             - dest: spec.arguments.parameters.2.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: https://github.com/maryiaCodefresh/word-mastermind.git
+                dataTemplate: '{{ .Input.body.repository.name }}'
             - dest: spec.arguments.parameters.3.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: mashabrauer/word-mastermind
+                dataTemplate: ./manifests/word-mastermind.yml
             - dest: spec.arguments.parameters.4.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: '5.0'
+                dataTemplate: https://github.com/maryiaCodefresh/word-mastermind.git
             - dest: spec.arguments.parameters.5.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: '{{ trunc 7 .Input.body.after }}'
+                dataTemplate: mashabrauer/word-mastermind
             - dest: spec.arguments.parameters.6.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: '{{ trimPrefix "refs/heads/" .Input.body.ref }}'
+                dataTemplate: '5.0'
             - dest: spec.arguments.parameters.7.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: '{{ .Input.body.head_commit.url }}'
+                dataTemplate: '{{ trunc 7 .Input.body.after }}'
             - dest: spec.arguments.parameters.8.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: '{{ .Input.body.head_commit.message }}'
+                dataTemplate: '{{ trimPrefix "refs/heads/" .Input.body.ref }}'
             - dest: spec.arguments.parameters.9.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: github-token
+                dataTemplate: '{{ .Input.body.head_commit.url }}'
             - dest: spec.arguments.parameters.10.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
-                dataTemplate: registry-creds
+                dataTemplate: '{{ .Input.body.head_commit.message }}'
             - dest: spec.arguments.parameters.11.value
+              src:
+                dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
+                dataTemplate: github-token
+            - dest: spec.arguments.parameters.12.value
+              src:
+                dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
+                dataTemplate: registry-creds
+            - dest: spec.arguments.parameters.13.value
               src:
                 dependencyName: github-f50d76a9-c450-466d-8d63-984c95bae7f2
                 dataTemplate: docker-config
