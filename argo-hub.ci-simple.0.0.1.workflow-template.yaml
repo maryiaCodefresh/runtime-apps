@@ -89,22 +89,6 @@ spec:
                   value: '{{ inputs.parameters.CONTEXT }}'
                 - name: TAG
                   value: '{{ inputs.parameters.IMAGE_TAG }}'
-
-    # Test template
-    - name: test
-      metadata:
-        annotations:
-          argo-hub-template/description: 'Test image pulling correctly and printing it content files'
-          argo-hub-template/icon_url: "https://cdn.jsdelivr.net/gh/codefresh-io/argo-hub@main/workflows/ci-simple/assets/icon.svg"
-          argo-hub-template/icon_background: "#004C76"
-      inputs:
-        parameters:
-          - name: IMAGE
-      container:
-        image: '{{ inputs.parameters.IMAGE }}'
-        command: [sh, -c]
-        args: ["ls"]
-
     #update K8s manifest
     - name: update-image-step
       inputs:
