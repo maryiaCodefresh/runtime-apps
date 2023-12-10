@@ -110,8 +110,11 @@ spec:
       inputs:
         parameters:
         - name: github-repo
+          value: '{{inputs.parameters.github-repo}}'
         - name: manifest-path
+          value: '{{inputs.parameters.manifest-path}}'
         - name: new-image-tag
+          value: '{{ inputs.parameters.IMAGE_TAG }}'
       container:
         image: alpine/git
         command: [sh]
