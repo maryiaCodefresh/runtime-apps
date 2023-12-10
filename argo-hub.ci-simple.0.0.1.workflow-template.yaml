@@ -28,7 +28,7 @@ spec:
         parameters:
         - name: GITHUB_REPO
         - name: MANIFEST_PATH
-        - name: new-image-tag
+        - name: IMAGE_TAG
       script:
         name: step
         image: alpine/git
@@ -84,6 +84,9 @@ spec:
           # https://jamesdefabia.github.io/docs/user-guide/kubectl/kubectl_create_secret_docker-registry/
           - name: DOCKER_CONFIG_SECRET
             default: docker-config  # the name of the registry-creds secret you created
+          - name: GITHUB_REPO
+          - name: MANIFEST_PATH
+          - name: IMAGE_TAG
       dag:
         tasks:
           # https://codefresh.io/argohub/workflow-template/kaniko
