@@ -23,6 +23,28 @@ spec:
         secretName: '{{ inputs.parameters.DOCKER_CONFIG_SECRET }}'
   entrypoint: ci-tasks
   templates:
+    #update K8s manifest
+    - name: update-image
+      inputs:
+        parameters:
+        - name: github-repo
+          value: '{{inputs.parameters.GITHUB_REPO}}'
+        - name: manifest-path
+          value: '{{inputs.parameters.MANIFEST_PATH}}'
+        - name: new-image-tag
+          value: '{{ inputs.parameters.IMAGE_TAG }}'
+      script:
+        name: step
+        image: alpine/git
+        command: [sh]
+        source: |
+          git clone https://github.com/{{inputs.parameters.github-repo}} /workspace/repo
+          cd /workspace/repo
+          git checkout -b update-image
+          sed -i "s/image:.*\$/image: your-container-image:{{inputs.parameters.new-image-tag}}/" {{inputs.parameters.manifest-path}}
+          git add .
+          git commit -m "Update container image tag to {{inputs.parameters.new-image-tag}}"
+          git push origin update-image
     - name: ci-tasks
       metadata:
         annotations:
@@ -89,25 +111,3 @@ spec:
                   value: '{{ inputs.parameters.CONTEXT }}'
                 - name: TAG
                   value: '{{ inputs.parameters.IMAGE_TAG }}'
-    #update K8s manifest
-    - name: update-image
-      inputs:
-        parameters:
-        - name: github-repo
-          value: '{{inputs.parameters.GITHUB_REPO}}'
-        - name: manifest-path
-          value: '{{inputs.parameters.MANIFEST_PATH}}'
-        - name: new-image-tag
-          value: '{{ inputs.parameters.IMAGE_TAG }}'
-      script:
-        name: step
-        image: alpine/git
-        command: [sh]
-        source: |
-          git clone https://github.com/{{inputs.parameters.github-repo}} /workspace/repo
-          cd /workspace/repo
-          git checkout -b update-image
-          sed -i "s/image:.*\$/image: your-container-image:{{inputs.parameters.new-image-tag}}/" {{inputs.parameters.manifest-path}}
-          git add .
-          git commit -m "Update container image tag to {{inputs.parameters.new-image-tag}}"
-          git push origin update-image
