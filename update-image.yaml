@@ -24,7 +24,7 @@ spec:
           - name: GITHUB_REPO
           - name: MANIFEST_PATH
           - name: IMAGE_TAG
-      container:
+      script:
         image: alpine/git
         workingDir: '{{ inputs.artifacts.repo.path }}'
         command: [sh]
