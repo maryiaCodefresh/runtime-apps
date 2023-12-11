@@ -7,15 +7,6 @@ spec:
   templates:
     - name: update-image
       inputs:
-        artifacts:
-          - name: repo
-            path: /tmp/repo
-            git:
-              repo: '{{ inputs.parameters.REPO}}'
-              revision: '{{ inputs.parameters.REVISION }}'
-              usernameSecret:
-                name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
-                key: token
         parameters:
           - name: REPO
           - name: REVISION
@@ -28,13 +19,21 @@ spec:
           - name: IMAGE_NAME
       script:
         image: alpine/git
-        workingDir: '{{ inputs.artifacts.repo.path }}'
+        env:
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ inputs.parameters.GIT_TOKEN_SECRET }}'
+                  key: token
         command: ["sh"]
         source: |
+          mkdir gitrepo 
+          git clone --depth=1 https://{{ inputs.parameters.USER }}:$TOKEN@github.com/{{ inputs.parameters.GITHUB_REPO }}.git gitrepo
+          cd gitrepo/
           sed -i "s#image:.*#image: {{ inputs.parameters.IMAGE_NAME }}:{{ inputs.parameters.IMAGE_TAG }}#g" {{ inputs.parameters.MANIFEST_PATH }}
           cat {{ inputs.parameters.MANIFEST_PATH }}
           git config user.name {{ inputs.parameters.USER }}
           git config user.email {{ inputs.parameters.EMAIL }}
           git add .
           git commit -m "Update container image tag to {{ inputs.parameters.IMAGE_TAG }}"
-          git push remote.origin.url HEAD:master
+          git push -u origin master
