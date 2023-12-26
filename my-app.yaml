@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: default
+  source:
+    path: ./manifests/
+    repoURL: https://github.com/maryiaCodefresh/word-mastermind.git
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: word-mastermind
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+      allowEmpty: false
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=false
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=false
